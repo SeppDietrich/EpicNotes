@@ -1,0 +1,15 @@
+.profile-container{
+	display: flex;
+	margin: 20px;
+	width: 100%;
+}
+
+.profile-name{
+	width: 50%;
+}
+.profile-image{
+	width: 100%;
+}
+.profile-img{
+	width: 100%;
+}
