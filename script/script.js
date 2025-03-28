@@ -14,27 +14,12 @@ function savefile() {
 
     // Create modal for filename inputs
     body.innerHTML = `
-        <div class="hello" style="
-            width: 400px; 
-            background-color: rgb(245, 169, 62); 
-            padding-bottom: 5px; 
-            margin: 10px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            height: 150px; 
-            justify-content: center; 
-            border-radius: 20px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        ">
-            <h1 style="margin: 0; padding: 15px;">Name the File:</h1>
+        <div class="save">
+            <h1 class="save-title">Name the File:</h1>
             <input id="filename" type="text" 
                 placeholder="${defaultFileName}" 
                 value="${defaultFileName}" 
-                style="width: 200px; height: 25px; font-size: 20px;" 
+                class="save-input" 
             />
         </div>
     `;
@@ -48,8 +33,9 @@ function savefile() {
             const data = note.value || ""; // Fallback if no data is provided
             const fileType = "text/plain";
             body.innerHTML = ' ';
-            download(data, filename, fileType);
             cleanup();
+            download(data, filename, fileType);
+            
             // Remove modal and listener
             
         } else if (e.code === "Escape") {

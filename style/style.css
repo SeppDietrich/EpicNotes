@@ -44,14 +44,17 @@ h1, h2 {
   font-weight: bold;
   text-decoration: none;
 }
+
 .note{
   width: 100%;
   height: 60vh;
 }
+
 .note-box{
   display: flex;
   flex-direction: column;
 }
+
 .button {
   background-color: #f4511e;
   border: none;
@@ -66,20 +69,50 @@ h1, h2 {
   text-decoration: none;
   cursor: pointer;
 }
+
 textarea{
   resize: vertical;
 }
 
 .button:hover {opacity: 1}
+
 .hidden{
   display: none;
 }
+
 .buttons{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
+.save{
+  width: 400px; 
+  background-color: rgb(245, 169, 62); 
+  padding-bottom: 5px; 
+  margin: 10px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  height: 150px; 
+  justify-content: center; 
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.save-title{
+  margin: 0;
+  padding: 15px;
+}
+
+.save-input{
+  width: 200px;
+  height: 25px; 
+  font-size: 20px;
+}
 @media only screen and (max-width: 600px) {
  
   .nav-list{
@@ -126,20 +159,4 @@ section {
   border-radius: 8px;
   width: 70vw;
 }
-}
-.hello{
-  width: 400px; 
-  background-color: rgb(245, 169, 62); 
-  padding-bottom: 5px; 
-  margin: 10px;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center;
-  height: 150px; 
-  justify-content: center; 
-  border-radius: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
