@@ -23,6 +23,7 @@ function savefile() {
         </div>
     `;
 
+
     const filenameInput = document.getElementById("filename");
 
     
@@ -40,6 +41,7 @@ function savefile() {
             const fileType = "text/plain";
             cleanup();
             download(data, filename, fileType);
+            saveInLocalStorage(data, filename, timestamp);
 
              
         } 
