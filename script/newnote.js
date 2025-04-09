@@ -1,5 +1,7 @@
-let notes = [];  // Better to use array literal notation
+// Better to use array literal notation
+let notes = [];  
 let curent ;
+
 function updateNotes() {
     localStorage.setItem("notes", JSON.stringify(notes));
 }
@@ -26,6 +28,7 @@ function loadCurent(){
     curent=localStorage.getItem('curent')? localStorage.getItem('curent') : 0;
     console.log(curent);
 }
+
 loadCurent();
 
 
@@ -42,7 +45,7 @@ function saveInLocalStorage(note, filename, date){
 }
 
  
- 
+
 
 
 	

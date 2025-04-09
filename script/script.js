@@ -1,11 +1,98 @@
-
-function getCurrentTimestamp() {
+function savefile() {
     const d = new Date();
-    return `${d.getMonth() + 1}/${d.getDate()}-${d.getHours()}:${d.getMinutes()}`;
+    let month = d.getMonth() + 1; 
+    let day = d.getDate();
+    let hour = d.getHours();
+    let min = d.getMinutes();
+    let timestamp = `${month}/${day}-${hour}:${min}`;
+    let defaultFileName = `Note_${timestamp}.txt`;
+
+    console.log(`Generated timestamp: ${timestamp}`);
+
+    const note = document.getElementById("data");
+    const saveWindow = document.getElementById("save-window");
+
+    saveWindow.innerHTML = `
+        <div class="save">
+            <h1 class="save-title">Name the File:</h1>
+            <input id="filename" type="text" 
+                placeholder="${defaultFileName}" 
+                value="${defaultFileName}" 
+                class="save-input" 
+            />
+        </div>
+    `;
+
+
+    const filenameInput = document.getElementById("filename");
+
+    
+    const cleanup = () => {
+        document.getElementById("filename").focus();
+        saveWindow.innerHTML='';
+        document.removeEventListener("keydown", handleKeydown);
+    };
+
+    
+    const handleKeydown = (e) => {
+        if (e.code === "Enter") {
+            const filename = filenameInput.value || defaultFileName;
+            const data = note.value || "";
+            const fileType = "text/plain";
+            cleanup();
+            download(data, filename, fileType);
+            saveInLocalStorage(data, filename, timestamp);
+
+             
+        } 
+        else if (e.code === "Escape") {
+            cleanup();
+        }
+        else{
+            console.log("Lohhhh");
+        }
+    };
+
+    // Attach event listener
+    document.addEventListener("keydown", handleKeydown);
 }
 
-function downloadFile(data, fileName, fileType) {
+
+
+function sharefile(){
+    let data = document.getElementById("data").value;
+    navigator.clipboard.writeText(data);
+    alert("Copied text ... : "+ data);
+}
+function updatenote(data){
+    document.getElementById("data").value=data;
+}
+function printFile(file) {
+    const reader = new FileReader();
+    
+    reader.onload = function(event) {
+        const data = event.target.result;
+        
+        updatenote(data);
+    };
+
+    reader.readAsText(file);
+}
+
+function loadfile(){
+    const input = document.getElementById("load");
+    const file = input.files[0];
+    
+    if (file) {
+        printFile(file);
+    } else {
+        console.log("No file selected");
+    }
+}
+
+function download(data, fileName, fileType) {
     const file = new Blob([data], { type: fileType });
+    // For Internet Explorer support
     if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(file, fileName);
     } else {
@@ -20,113 +107,5 @@ function downloadFile(data, fileName, fileType) {
             URL.revokeObjectURL(url);
         }, 0);
     }
-}
-
-
-function handleSaveConfirm(defaultFileName, noteContent) {
-    const filename = document.getElementById("filename").value || defaultFileName;
-    downloadFile(noteContent, filename, "text/plain");
-    saveInLocalStorage(noteContent, filename, getCurrentTimestamp());
-    document.getElementById("save-window").innerHTML = '';
-}
-
-function setupSaveDialog(defaultFileName, noteContent) {
-    const filenameInput = document.getElementById("filename");
-    filenameInput.focus();
-
-    function handleKeyPress(e) {
-        if (e.code === "Enter") {
-            handleSaveConfirm(defaultFileName, noteContent);
-            document.removeEventListener("keydown", handleKeyPress);
-        } else if (e.code === "Escape") {
-            document.getElementById("save-window").innerHTML = '';
-            document.removeEventListener("keydown", handleKeyPress);
-        }
-    }
-
-    document.addEventListener("keydown", handleKeyPress);
-}
-
-//Button function ffrom HTML
-function savefile() {
-    const timestamp = getCurrentTimestamp();
-    const defaultFileName = `Note_${timestamp}.txt`;
-    const noteContent = document.getElementById("data").innerText;
-    const saveWindow = document.getElementById("save-window");
-
-    saveWindow.innerHTML = `
-        <div class="save">
-            <h1 class="save-title">Name the File:</h1>
-            <input id="filename" type="text" 
-                placeholder="${defaultFileName}" 
-                value="${defaultFileName}" 
-                class="save-input" 
-            />
-        </div>
-    `;
-
-    setupSaveDialog(defaultFileName, noteContent);
-}
-
-function sharefile() {
-    const data = document.getElementById("data").value;
-    navigator.clipboard.writeText(data)
-        .then(() => alert("Note copied to clipboard"))
-        .catch(err => console.error("Copy failed:", err));
-}
-
-function loadfile() {
-    const file = document.getElementById("load").files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById("data").value = e.target.result;
-    };
-    reader.readAsText(file);
-}
-
-
-// Setup event listeners
-document.getElementById("load").addEventListener("change", loadfile);
-
-
-
-// for editing text
-let optionButtons = document.querySelectorAll(".option-button");
-let writingArea = document.getElementById("data");
-
-optionButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        applyStyle(button.id);
-        console.log(button.id);
-    });
-    
-});
-
-function applyStyle(style){
-    let selection= window.getSelection();
-    if(!selection.rangeCount) return;
-
-    let range= selection.getRangeAt(0);
-    let selectedText= range.toString();
-
-    if (selectedText.length===0) return;
-
-    let span= document.createElement("span");
-
-    if(style == "bold"){
-        span.style.fontWeight="bold";
-    } else if(style=="italic"){
-        span.style.fontStyle="italic";
-    }else if (style=="underline"){
-        span.style.textDecoration="underline";
-    }
-
-    span.textContent=selectedText;
-
-    range.deleteContents();
-    range.insertNode(span);
-
 }
 

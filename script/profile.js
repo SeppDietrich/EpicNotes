@@ -30,6 +30,7 @@ let recentNotes = document.createElement('div');
 let recentList =document.createElement('ul');
 
 
+
 loadNotes(notes, recentNotescontainer, recentList, recentNotes);
 
 
