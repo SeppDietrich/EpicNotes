@@ -1,10 +1,14 @@
-function savefile() {
+function getTimeStamp(){
     const d = new Date();
     let month = d.getMonth() + 1; 
     let day = d.getDate();
     let hour = d.getHours();
     let min = d.getMinutes();
     let timestamp = `${month}/${day}-${hour}:${min}`;
+    return timestamp;
+}
+function procesNote(toExport){
+    let timestamp = getTimeStamp();
     let defaultFileName = `Note_${timestamp}.txt`;
 
     //console.log(`Generated timestamp: ${timestamp}`);
@@ -40,10 +44,8 @@ function savefile() {
             const data = note.innerText || "";
             const fileType = "text/plain";
             cleanup();
-            download(data, filename, fileType);
-            saveInLocalStorage(data, filename, timestamp);
-
-             
+            if(toExport){download(data, filename, fileType);}
+            else{saveInLocalStorage(data, filename, timestamp);}
         } 
         else if (e.code === "Escape") {
             cleanup();
@@ -55,11 +57,18 @@ function savefile() {
 
     // Attach event listener
     document.addEventListener("keydown", handleKeydown);
+
+}
+function saveFile() {
+    procesNote(false);
+    }
+function exportFile(){
+    procesNote(true);
 }
 
 
 
-function sharefile(){
+function shareFile(){
     let data = document.getElementById("data").value;
     navigator.clipboard.writeText(data);
     alert("Copied text ... : "+ data);
@@ -79,7 +88,7 @@ function printFile(file) {
     reader.readAsText(file);
 }
 
-function loadfile(){
+function loadFile(){
     const input = document.getElementById("load");
     const file = input.files[0];
     
