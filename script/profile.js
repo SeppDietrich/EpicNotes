@@ -1,30 +1,37 @@
-// Note display functions
-function createNoteElement(note) {
-    const noteElement = document.createElement('li');
-    noteElement.innerHTML = `
-        <div class="recent-list">
-            <div class="notes-date">${note.date}</div>
-            <div class="notes-filename">${note.filename}</div>
-        </div>
-    `;
-    return noteElement;
-}
+function loadNotes(notes, recentNotescontainer, recentList, recentNotes){
+	for(let i=0; i<notes.length; i++){
+		
+		let note =document.createElement('li');
+		note.innerHTML=`
+			<div class="recent-list">
+			 <div class="notes-date">${notes[i].date}</div>
+			 <div class="notes-filename">${notes[i].filename}</div>
+			</div>
+		`;
+		recentList.appendChild(note);
 
-function displayNotes(notes) {
-    const container = document.getElementById('recent-container');
-    const notesList = document.createElement('ul');
-    
-    for (let i = 0; i < notes.length; i++) {
-        notesList.appendChild(createNoteElement(notes[i]));
-    }
-    
-    container.appendChild(notesList);
-}
+	}
+	recentNotes.appendChild(recentList);
+	recentNotescontainer.appendChild(recentNotes);
 
+}
 
 try {
-    const storedNotes = JSON.parse(localStorage.getItem("notes")) || [];
-    displayNotes(storedNotes);
+    notes = JSON.parse(localStorage.getItem("notes"));
+    if (!Array.isArray(notes)) {
+        notes = [];
+    }
 } catch (e) {
-    console.error("Error loading notes:", e);
+    notes = [];
 }
+// console.log(notes);  //Debug masterpiece :)
+let recentNotescontainer =document.getElementById('recent-container');
+let recentNotes = document.createElement('div');
+let recentList =document.createElement('ul');
+
+
+loadNotes(notes, recentNotescontainer, recentList, recentNotes);
+
+
+
+

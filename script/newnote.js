@@ -1,34 +1,47 @@
-// Storage-related functions
-let notes = [];
-let currentNote = 0;
-
-function loadNotesFromStorage() {
-    try {
-        notes = JSON.parse(localStorage.getItem("notes")) || [];
-        if (!Array.isArray(notes)) notes = [];
-    } catch (e) {
-        notes = [];
-    }
-}
-
-function loadCurrentIndex() {
-    currentNote = localStorage.getItem('curent') ? localStorage.getItem('curent') : 0;
-    console.log("Current index:", currentNoteIndex);
-}
-
-function updateNotesInStorage() {
+let notes = [];  // Better to use array literal notation
+let curent ;
+function updateNotes() {
     localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-function saveInLocalStorage(noteContent, filename, date) {
-    notes.push({
-        content: noteContent,
-        filename: filename,
-        date: date
-    });
-    updateNotesInStorage();
+// Initialize notes from localStorage
+if (localStorage.getItem("notes")) {
+    try {
+        notes = JSON.parse(localStorage.getItem("notes"));
+        // Ensure it's an array
+        if (!Array.isArray(notes)) {
+            notes = [];
+        }
+    } catch (e) {
+        notes = [];
+    }
+} else {
+    notes = [];
+}
+//Initialize curent from local storage 
+// TODO:
+
+function loadCurent(){
+    if(localStorage)
+    curent=localStorage.getItem('curent')? localStorage.getItem('curent') : 0;
+    console.log(curent);
+}
+loadCurent();
+
+
+function saveInLocalStorage(note, filename, date){
+	let newNote={ 
+		content: note,
+		filename: filename,
+		date: date
+
+	};
+	notes.push(newNote);
+
+	updateNotes();
 }
 
-// Initialize storage when loaded
-loadNotesFromStorage();
-loadCurrentIndex();
+
+
+
+	
