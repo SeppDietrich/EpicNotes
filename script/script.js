@@ -7,7 +7,7 @@ function savefile() {
     let timestamp = `${month}/${day}-${hour}:${min}`;
     let defaultFileName = `Note_${timestamp}.txt`;
 
-    console.log(`Generated timestamp: ${timestamp}`);
+    //console.log(`Generated timestamp: ${timestamp}`);
 
     const note = document.getElementById("data");
     const saveWindow = document.getElementById("save-window");
@@ -37,7 +37,7 @@ function savefile() {
     const handleKeydown = (e) => {
         if (e.code === "Enter") {
             const filename = filenameInput.value || defaultFileName;
-            const data = note.value || "";
+            const data = note.innerText || "";
             const fileType = "text/plain";
             cleanup();
             download(data, filename, fileType);
@@ -107,5 +107,46 @@ function download(data, fileName, fileType) {
             URL.revokeObjectURL(url);
         }, 0);
     }
+}
+
+
+
+
+// for editing text
+let optionButtons = document.querySelectorAll(".option-button");
+let writingArea = document.getElementById("data");
+
+optionButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        applyStyle(button.id);
+        console.log(button.id);
+    });
+    
+});
+
+function applyStyle(style){
+    let selection= window.getSelection();
+    if(!selection.rangeCount) return;
+
+    let range= selection.getRangeAt(0);
+    let selectedText= range.toString();
+
+    if (selectedText.length===0) return;
+
+    let span= document.createElement("span");
+
+    if(style == "bold"){
+        span.style.fontWeight="bold";
+    } else if(style=="italic"){
+        span.style.fontStyle="italic";
+    }else if (style=="underline"){
+        span.style.textDecoration="underline";
+    }
+
+    span.textContent=selectedText;
+
+    range.deleteContents();
+    range.insertNode(span);
+
 }
 
