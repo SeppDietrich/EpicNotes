@@ -51,7 +51,7 @@ function setupSaveDialog(defaultFileName, noteContent) {
 function savefile() {
     const timestamp = getCurrentTimestamp();
     const defaultFileName = `Note_${timestamp}.txt`;
-    const noteContent = document.getElementById("data").value;
+    const noteContent = document.getElementById("data").innerText;
     const saveWindow = document.getElementById("save-window");
 
     saveWindow.innerHTML = `
