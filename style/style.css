@@ -8,7 +8,16 @@ body {
 }
 
 /* css for nav was removed */
- 
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(228, 208, 35);
+  border-radius: 8px;
+  height: 60px;
+  width: auto;
+  margin: 15px 0;
+}
 section {
   padding: 2em;
   margin: 2em 0;
