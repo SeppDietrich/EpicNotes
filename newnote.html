@@ -14,10 +14,17 @@
    <div id="navbar"></div>
    
     <section>
+        <div class="container">
+            <div class="function-buttons">
+                <button id="bold" class="option-button">B</button>
+                <button id="italic"class="option-button">I</button>   
+                <button id="underline" class="option-button">U</button>
+            </div>
+        </div>
         <div class="note-box">
-            <textarea name="message" class="note" id="data">
+            <div name="message" class="note" id="data" contenteditable="true">
                 Write text here.
-            </textarea>
+            </div>
             <div class="buttons">
                 <button type="button" class="button" id="save" onclick="savefile()">Save</button> 
                 <label for="load" class="button">Load</label>
