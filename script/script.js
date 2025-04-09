@@ -37,7 +37,7 @@ function savefile() {
     const handleKeydown = (e) => {
         if (e.code === "Enter") {
             const filename = filenameInput.value || defaultFileName;
-            const data = note.value || "";
+            const data = note.innerHTML || "";
             const fileType = "text/plain";
             cleanup();
             download(data, filename, fileType);
