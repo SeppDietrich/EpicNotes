@@ -41,7 +41,8 @@ function saveInLocalStorage(note, filename, date){
 	updateNotes();
 }
 
-
+ 
+ 
 
 
 	
