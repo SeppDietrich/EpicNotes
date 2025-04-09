@@ -1,5 +1,5 @@
 function loadNotes(notes, recentNotescontainer, recentList, recentNotes){
-	for(let i=0; i<notes.length; i++){
+	for(let i=notes.length-1; i>=0; i--){
 		
 		let note =document.createElement('li');
 		note.innerHTML=`
