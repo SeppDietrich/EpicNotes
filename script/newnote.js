@@ -1,6 +1,6 @@
 // Better to use array literal notation
 let notes = [];  
-let curent ;
+let current ;
 
 function updateNotes() {
     localStorage.setItem("notes", JSON.stringify(notes));
@@ -24,9 +24,13 @@ if (localStorage.getItem("notes")) {
 // TODO:
 
 function loadCurent(){
-    if(localStorage)
-    curent=localStorage.getItem('curent')? localStorage.getItem('curent') : 0;
-    console.log(curent);
+    if(localStorage.getItem('current')){
+        current=localStorage.getItem('current')?    JSON.parse(localStorage.getItem('current'))  : 0;
+    console.log(current);   
+    }
+    let data =document.getElementById('data');
+    data.innerText=current.content;
+    
 }
 
 loadCurent();
