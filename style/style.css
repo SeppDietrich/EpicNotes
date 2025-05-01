@@ -8,15 +8,24 @@ body {
 }
 
 /* css for nav was removed */
-.container{
+
+.options{
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(228, 208, 35);
   border-radius: 8px;
-  height: 60px;
+  height: 100px;
+  padding: 20px,10px;
   width: auto;
   margin: 15px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+}
+#data.note{
+  background-color: beige;
 }
 section {
   padding: 2em;
@@ -26,6 +35,15 @@ section {
   width: 70vw;
 }
 
+select {
+  padding: 7px;
+  border: 1px solid #020929;
+  border-radius: 3px;
+}
+.options label,
+.options select {
+  font-family: "Poppins", sans-serif;
+}
 h1, h2 {
   color: #333;
 }
