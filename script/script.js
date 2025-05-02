@@ -118,9 +118,6 @@ function download(data, fileName, fileType) {
     }
 }
 
-
-
-
 // for editing text
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");
