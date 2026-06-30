@@ -41,7 +41,7 @@ function procesNote(toExport){
     const handleKeydown = (e) => {
         if (e.code === "Enter") {
             const filename = filenameInput.value || defaultFileName;
-            const data =note.innerText || "";
+            const data =note.innerHTML|| "";
             const fileType = "text/plain";
             cleanup();
             if(toExport){download(data, filename, fileType);}

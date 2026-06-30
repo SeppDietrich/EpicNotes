@@ -29,7 +29,7 @@ function loadCurent(){
     console.log(current);   
     }
     let data =document.getElementById('data');
-    data.innerText=current.content;
+    data.innerHTML=current.content;
     
 }
 
